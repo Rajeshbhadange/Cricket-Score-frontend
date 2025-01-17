@@ -12,23 +12,25 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
-    const response = await fetch(`${apiUrl}/adminlogin`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    event.preventDefault(); // Prevent form submission default behavior
+    try {
+      const response = await fetch("http://localhost:5000/adminlogin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    const json = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    if (json.success) {
-      localStorage.setItem("token", json.token);
-      navigate("/admin");
-    } else {
-      toast.error(json.message);
+      const data = await response.json();
+      toast.success("Login successful!");
+      console.log("Response:", data);
+      navigate("/admin"); // Redirect to a dashboard or desired route
+    } catch (error) {
+      console.error("Error during login:", error.message);
+      toast.error("Login failed. Please try again.");
     }
   };
 
@@ -43,7 +45,7 @@ const LoginForm = () => {
   return (
     <>
       <ToastContainer />
-      <div className="min-h-screen flex items-center  justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-7">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-7">
         <div className="max-w-md w-full space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

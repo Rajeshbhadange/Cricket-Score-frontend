@@ -26,7 +26,7 @@ const AdminView = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/admin");
   };
 
   const handleNewMatch = () => {
@@ -78,7 +78,7 @@ const AdminView = () => {
     let token = localStorage.getItem("token");
 
     if (!token) {
-      navigate("/");
+      navigate("/admin");
     }
   }, []);
 

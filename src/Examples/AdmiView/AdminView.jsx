@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import AdminControl from "../../components/AdminControl";
 import OverList from "../../components/OverListings";
-import { socket } from "../../socket";
+import { socket } from "../../Socket";
 import { useNavigate } from "react-router-dom";
 const AdminView = () => {
   const [currentBall, setCurrentBall] = useState(0);
@@ -130,7 +130,6 @@ const AdminView = () => {
         setMoveValue={setMoveValue}
         moveValue={moveValue}
       />
-
       <OverList
         overValue={overValue}
         lastThreeOvers={lastThreeOvers}
@@ -138,21 +137,6 @@ const AdminView = () => {
         overArr={overArr}
         overNo={overNo}
       />
-
-      <div className="flex justify-between w-1/2 300:w-[100%] sm:w-[40%] md:w-[30%] lg:w-[30%] mx-auto mt-6 mb-4">
-        <button
-          onClick={handleNewMatch}
-          className="px-4 py-2 bg-blue-500 text-white rounded w-fit 300:text-xs sm:text-sm lg:text-lg  hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-        >
-          New Match
-        </button>
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 bg-red-500 text-white rounded w-fit 300:text-xs sm:text-sm  lg:text-lg  hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
-        >
-          Logout
-        </button>
-      </div>
     </div>
   );
 };

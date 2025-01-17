@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { socket } from "../socket";
+import { socket } from "../Socket";
 import colors from "../assets/colors";
 
 const AdminControl = ({

@@ -9,8 +9,8 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/admin" element={<AdminView />} />
-          <Route path="/" element={<UserView />} />
+          <Route path="/" element={<AdminView />} />
+          {/* <Route path="/" element={<UserView />} /> */}
           <Route path="/adminlogin" element={<LoginForm />} />
         </Routes>
       </Router>

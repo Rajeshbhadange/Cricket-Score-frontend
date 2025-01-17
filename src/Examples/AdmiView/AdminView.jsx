@@ -24,6 +24,25 @@ const AdminView = () => {
   const [moveValue, setMoveValue] = useState(0);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/admin");
+  };
+
+  const handleNewMatch = () => {
+    localStorage.removeItem("matchId");
+    setCurrentBall(0);
+    setLastThreeOvers([{ 0: "", 1: "", 2: "", 3: "", 4: "", 5: "" }]);
+    setOverArr([1]);
+    setMoveValue(0);
+    setOverNo(0);
+    setOverValue({ 0: "", 1: "", 2: "", 3: "", 4: "", 5: "" });
+    setRuns(0);
+    setWickets(0);
+
+    socket.emit("startingNewMatchFromAdmin");
+  };
+
   const getMatchDataFromDB = async () => {
     const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
     const response = await fetch(`${apiUrl}/getMatchData`, {
@@ -119,6 +138,21 @@ const AdminView = () => {
         overArr={overArr}
         overNo={overNo}
       />
+
+      <div className="flex justify-between w-1/2 300:w-[100%] sm:w-[40%] md:w-[30%] lg:w-[30%] mx-auto mt-6 mb-4">
+        <button
+          onClick={handleNewMatch}
+          className="px-4 py-2 bg-blue-500 text-white rounded w-fit 300:text-xs sm:text-sm lg:text-lg  hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          New Match
+        </button>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 bg-red-500 text-white rounded w-fit 300:text-xs sm:text-sm  lg:text-lg  hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
